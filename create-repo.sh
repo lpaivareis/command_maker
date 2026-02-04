@@ -124,7 +124,7 @@ cat > index.html << 'EOF'
             <h3>🚀 Instalação</h3>
             <div class="install-box">
                 <p><strong>1. Adicione o repositório:</strong></p>
-                <code>echo "deb [trusted=yes] https://seu-usuario.github.io/command-maker/apt-repo stable main" | sudo tee /etc/apt/sources.list.d/command-maker.list</code>
+                <code>echo "deb [trusted=yes] https://lpaivareis.github.io/command-maker/apt-repo stable main" | sudo tee /etc/apt/sources.list.d/command-maker.list</code>
                 
                 <p style="margin-top: 20px;"><strong>2. Instale o pacote:</strong></p>
                 <code>sudo apt-get update && sudo apt-get install command-maker</code>
