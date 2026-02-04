@@ -1,4 +1,3 @@
-# DEBIAN/control
 Package: command-maker
 Version: 1.0.0
 Section: utils

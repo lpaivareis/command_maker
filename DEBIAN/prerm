@@ -1,19 +1,15 @@
-# DEBIAN/control
-Package: command-maker
-Version: 1.0.0
-Section: utils
-Priority: optional
-Architecture: all
-Maintainer: Lucas Paiva <lfelipepaivareis@gmail.com>
-Description: Sistema de gerenciamento de comandos documentados para Zsh
- Command Maker é um sistema inteligente para criar, gerenciar, documentar
- e organizar seus comandos e aliases de terminal em namespaces.
- .
- Recursos:
-  - Comandos organizados por namespace
-  - Documentação integrada
-  - Busca avançada
-  - Interface interativa
-  - Adicionar comandos facilmente
-Depends: zsh
-Homepage: https://github.com/lpaivareis/command_maker
+#!/bin/bash
+# DEBIAN/prerm
+
+set -e
+
+ZSHRC_SNIPPET="/etc/zsh/zshrc.d/command-maker.zsh"
+
+echo "Removendo configurações do Command Maker..."
+
+# Remove snippet
+if [ -f "$ZSHRC_SNIPPET" ]; then
+    rm -f "$ZSHRC_SNIPPET"
+fi
+
+exit 0
