@@ -1,0 +1,15 @@
+#!/bin/bash
+# DEBIAN/prerm
+
+set -e
+
+ZSHRC_SNIPPET="/etc/zsh/zshrc.d/command-maker.zsh"
+
+echo "Removendo configurações do Command Maker..."
+
+# Remove snippet
+if [ -f "$ZSHRC_SNIPPET" ]; then
+    rm -f "$ZSHRC_SNIPPET"
+fi
+
+exit 0

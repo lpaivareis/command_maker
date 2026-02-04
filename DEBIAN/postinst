@@ -1,0 +1,37 @@
+#!/bin/bash
+# DEBIAN/postinst
+
+set -e
+
+INSTALL_DIR="/usr/share/command-maker"
+ZSHRC_SNIPPET="/etc/zsh/zshrc.d/command-maker.zsh"
+
+echo "Configurando Command Maker..."
+
+# Cria diretório para snippets do zsh
+mkdir -p /etc/zsh/zshrc.d
+
+# Cria snippet global
+cat > "$ZSHRC_SNIPPET" << 'EOF'
+# Command Maker
+if [ -f /usr/share/command-maker/command_maker.sh ]; then
+    source /usr/share/command-maker/command_maker.sh
+fi
+EOF
+
+echo ""
+echo "╔════════════════════════════════════════════════════════════╗"
+echo "║       ✅ Command Maker instalado com sucesso!              ║"
+echo "╚════════════════════════════════════════════════════════════╝"
+echo ""
+echo "🚀 Para começar:"
+echo "   1. Abra um novo terminal ou execute: source ~/.zshrc"
+echo "   2. Execute: command-menu"
+echo ""
+echo "📚 Comandos disponíveis:"
+echo "   command-add    - Adicionar comando"
+echo "   command-menu   - Menu interativo"
+echo "   lsa            - Listar comandos"
+echo ""
+
+exit 0
