@@ -15,8 +15,8 @@ echo ""
 
 # Limpa builds anteriores
 echo "🧹 Limpando builds anteriores..."
-rm -rf "$BUILD_DIR"
-mkdir -p "$DEB_DIR"
+rm -rf "$BUILD_DIR" dist
+mkdir -p "$BUILD_DIR"
 
 # Cria estrutura de diretórios
 echo "📁 Criando estrutura..."
@@ -44,14 +44,15 @@ echo "🔨 Construindo pacote .deb..."
 dpkg-deb --build "$DEB_DIR"
 
 # Move para diretório de saída
+echo "📦 Movendo para dist/..."
 mkdir -p dist
-mv "$BUILD_DIR/${PACKAGE_NAME}_${VERSION}.deb" "dist/"
+mv "${BUILD_DIR}/${PACKAGE_NAME}_${VERSION}.deb" "dist/"
 
 echo ""
 echo "✅ Pacote criado: dist/${PACKAGE_NAME}_${VERSION}.deb"
 echo ""
 echo "📦 Para testar localmente:"
-echo "   sudo dpkg -i dist/${PACKAGE_NAME}_${VERSION}.deb"
+echo "   make install"
 echo ""
 echo "🗑️  Para remover:"
-echo "   sudo apt-get remove ${PACKAGE_NAME}"
+echo "   make uninstall"

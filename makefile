@@ -23,7 +23,7 @@ clean:
 
 install:
 	@echo "📦 Instalando localmente..."
-	@sudo dpkg -i dist/$(PACKAGE)_$(VERSION)_all.deb
+	@sudo dpkg -i dist/$(PACKAGE)_$(VERSION).deb
 
 uninstall:
 	@echo "🗑️  Desinstalando..."

@@ -7,7 +7,7 @@ Sistema inteligente para criar e gerenciar comandos personalizados no Zsh.
 ### Via APT (Recomendado)
 ```bash
 # Adicionar repositório
-echo "deb [trusted=yes] https://seu-usuario.github.io/command-maker/apt-repo stable main" | sudo tee /etc/apt/sources.list.d/command-maker.list
+echo "deb [trusted=yes] https://lpaivareis.github.io/command-maker/apt-repo stable main" | sudo tee /etc/apt/sources.list.d/command-maker.list
 
 # Instalar
 sudo apt-get update
@@ -17,7 +17,7 @@ sudo apt-get install command-maker
 ### Build local
 ```bash
 # Clonar repositório
-git clone https://github.com/seu-usuario/command-maker.git
+git clone https://github.com/lpaivareis/command-maker.git
 cd command-maker
 
 # Build
