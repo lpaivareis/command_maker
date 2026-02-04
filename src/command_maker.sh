@@ -39,7 +39,7 @@ command() {
 }
 
 # Lista comandos
-lsa() {
+command-find() {
     local namespace=$1
     
     if [ ! -f "$COMMANDS_META_FILE" ]; then
@@ -53,8 +53,8 @@ lsa() {
             printf "  \033[1;36m%-15s\033[0m → \033[0;90m[%s]\033[0m %s\n", $2, $1, $4
         }' "$COMMANDS_META_FILE" | sort
         
-        echo "\n💡 Dica: use 'lsa <namespace>' para filtrar"
-        echo "   Namespaces disponíveis: $(lsa-namespaces)"
+        echo "\n💡 Dica: use 'command-find <namespace>' para filtrar"
+        echo "   Namespaces disponíveis: $(command-find-namespaces)"
     else
         echo "📋 Comandos do namespace '\033[1;33m${namespace}\033[0m':\n"
         awk -F'|' -v ns="$namespace" 'NR>1 && $1==ns {
@@ -64,7 +64,7 @@ lsa() {
 }
 
 # Lista namespaces disponíveis
-lsa-namespaces() {
+command-find-namespaces() {
     if [ ! -f "$COMMANDS_META_FILE" ]; then
         return 1
     fi
@@ -72,11 +72,11 @@ lsa-namespaces() {
 }
 
 # Busca comandos por palavra-chave
-lsa-search() {
+command-find-search() {
     local query=$1
     
     if [ -z "$query" ]; then
-        echo "❌ Uso: lsa-search <palavra-chave>"
+        echo "❌ Uso: command-find-search <palavra-chave>"
         return 1
     fi
     
@@ -99,11 +99,11 @@ lsa-search() {
 }
 
 # Mostra detalhes de um comando específico
-lsa-show() {
+command-find-show() {
     local alias_name=$1
     
     if [ -z "$alias_name" ]; then
-        echo "❌ Uso: lsa-show <alias>"
+        echo "❌ Uso: command-find-show <alias>"
         return 1
     fi
     
@@ -161,7 +161,7 @@ command-add() {
     echo ""
     
     # Mostra namespaces existentes
-    local existing_ns=$(lsa-namespaces)
+    local existing_ns=$(command-find-namespaces)
     if [ ! -z "$existing_ns" ]; then
         echo "📂 Namespaces existentes: $existing_ns"
         echo ""
@@ -386,25 +386,25 @@ command-menu() {
     case $option in
         1)
             echo ""
-            lsa
+            command-find
             ;;
         2)
             echo ""
             echo -n "Digite o namespace: "
             read ns
-            lsa "$ns"
+            command-find "$ns"
             ;;
         3)
             echo ""
             echo -n "Digite a busca: "
             read query
-            lsa-search "$query"
+            command-find-search "$query"
             ;;
         4)
             echo ""
             echo -n "Digite o nome do alias: "
             read name
-            lsa-show "$name"
+            command-find-show "$name"
             ;;
         5)
             echo ""

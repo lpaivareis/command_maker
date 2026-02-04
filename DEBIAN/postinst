@@ -31,7 +31,7 @@ echo ""
 echo "📚 Comandos disponíveis:"
 echo "   command-add    - Adicionar comando"
 echo "   command-menu   - Menu interativo"
-echo "   lsa            - Listar comandos"
+echo "   command-find            - Listar comandos"
 echo ""
 
 exit 0

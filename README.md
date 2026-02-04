@@ -41,9 +41,9 @@ command-add
 
 ### Listar comandos
 ```bash
-lsa              # Todos
-lsa git          # Por namespace
-lsa-search docker # Buscar
+command-find              # Todos
+command-find git          # Por namespace
+command-find-search docker # Buscar
 ```
 
 ### Editar/Remover
