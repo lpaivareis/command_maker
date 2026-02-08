@@ -3,35 +3,22 @@
 
 set -e
 
-INSTALL_DIR="/usr/share/command-maker"
-ZSHRC_SNIPPET="/etc/zsh/zshrc.d/command-maker.zsh"
-
-echo "Configurando Command Maker..."
-
-# Cria diretório para snippets do zsh
-mkdir -p /etc/zsh/zshrc.d
-
-# Cria snippet global
-cat > "$ZSHRC_SNIPPET" << 'EOF'
-# Command Maker
-if [ -f /usr/share/command-maker/command_maker.sh ]; then
-    source /usr/share/command-maker/command_maker.sh
-fi
-EOF
-
 echo ""
-echo "╔════════════════════════════════════════════════════════════╗"
-echo "║       ✅ Command Maker instalado com sucesso!              ║"
-echo "╚════════════════════════════════════════════════════════════╝"
+echo "========================================"
+echo "  Command Maker instalado com sucesso! "
+echo "========================================"
 echo ""
-echo "🚀 Para começar:"
-echo "   1. Abra um novo terminal ou execute: source ~/.zshrc"
-echo "   2. Execute: command-menu"
+echo "Para ativar, adicione ao seu ~/.zshrc:"
 echo ""
-echo "📚 Comandos disponíveis:"
-echo "   command-add    - Adicionar comando"
-echo "   command-menu   - Menu interativo"
-echo "   command-find            - Listar comandos"
+echo "  # Command Maker"
+echo "  if [[ -f /usr/share/command-maker/command_maker.sh ]]; then"
+echo "      source /usr/share/command-maker/command_maker.sh"
+echo "  fi"
+echo ""
+echo "Ou execute: "
+echo "  echo 'source /usr/share/command-maker/command_maker.sh' >> ~/.zshrc"
+echo ""
+echo "Depois execute: source ~/.zshrc"
 echo ""
 
 exit 0

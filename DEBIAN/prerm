@@ -3,13 +3,11 @@
 
 set -e
 
-ZSHRC_SNIPPET="/etc/zsh/zshrc.d/command-maker.zsh"
-
-echo "Removendo configurações do Command Maker..."
-
-# Remove snippet
-if [ -f "$ZSHRC_SNIPPET" ]; then
-    rm -f "$ZSHRC_SNIPPET"
-fi
+echo ""
+echo "Command Maker sera removido."
+echo ""
+echo "Nota: Remova manualmente a referencia do seu ~/.zshrc se necessario."
+echo "      Seus aliases em ~/.command_maker_aliases foram mantidos."
+echo ""
 
 exit 0
