@@ -641,10 +641,7 @@ cm-reload() {
     fi
 }
 
-# Carrega aliases automaticamente ao iniciar
+# Carrega aliases automaticamente ao iniciar (silenciosamente)
 if [[ -f "$COMMANDS_ALIASES_FILE" ]]; then
     source "$COMMANDS_ALIASES_FILE"
 fi
-
-echo "Command Maker carregado! Execute 'cm-menu' para comecar."
-echo "Comandos: cm, cm-add, cm-find, cm-rm, cm-edit, cm-menu"
