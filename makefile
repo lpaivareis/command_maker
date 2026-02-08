@@ -70,7 +70,10 @@ install-local:
 uninstall-local:
 	@echo "Removendo instalacao local..."
 	@sed -i '/$(MARKER)/,/^fi$$/d' "$(ZSHRC)" 2>/dev/null || true
+	@rm -f $(HOME)/.command_maker_meta 2>/dev/null || true
 	@echo "Referencia removida do ~/.zshrc"
+	@echo "Arquivo de metadata removido"
+	@echo "Arquivo de aliases mantido em: ~/.command_maker_aliases"
 
 deploy:
 	@echo "Preparando deploy..."

@@ -8,30 +8,37 @@ DIST="stable"
 COMPONENT="main"
 ARCH="all"
 
-echo "🏗️  Criando repositório APT..."
+echo "Criando repositorio APT..."
 
-# Cria estrutura
+# Limpa e cria estrutura
+rm -rf "$REPO_DIR"
 mkdir -p "$REPO_DIR/pool/main"
 mkdir -p "$REPO_DIR/dists/$DIST/$COMPONENT/binary-$ARCH"
 
 # Copia pacote .deb
-echo "📦 Copiando pacote..."
+echo "Copiando pacote..."
 cp dist/*.deb "$REPO_DIR/pool/main/"
 
 # Gera arquivo Packages
-echo "📝 Gerando Packages..."
+echo "Gerando Packages..."
 cd "$REPO_DIR"
-dpkg-scanpackages --arch "$ARCH" pool/ > "dists/$DIST/$COMPONENT/binary-$ARCH/Packages"
+
+# Gera Packages
+dpkg-scanpackages pool/ 2>/dev/null > "dists/$DIST/$COMPONENT/binary-$ARCH/Packages"
+
 gzip -k -f "dists/$DIST/$COMPONENT/binary-$ARCH/Packages"
 
-# Gera Release
-echo "📝 Gerando Release..."
-cat > "dists/$DIST/$COMPONENT/binary-$ARCH/Release" << EOF
-Archive: $DIST
-Component: $COMPONENT
-Origin: Command Maker Repository
+# Gera Release para o componente
+echo "Gerando Release..."
+cat > "dists/$DIST/Release" << EOF
+Origin: Command Maker
 Label: Command Maker
-Architecture: $ARCH
+Suite: $DIST
+Codename: $DIST
+Version: 1.0
+Architectures: $ARCH
+Components: $COMPONENT
+Description: Command Maker APT Repository
 EOF
 
 # Gera index.html
@@ -60,16 +67,8 @@ cat > index.html << 'EOF'
             max-width: 800px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
-        h1 {
-            color: #667eea;
-            margin-bottom: 10px;
-            font-size: 2.5em;
-        }
-        .subtitle {
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 1.2em;
-        }
+        h1 { color: #667eea; margin-bottom: 10px; font-size: 2.5em; }
+        .subtitle { color: #666; margin-bottom: 30px; font-size: 1.2em; }
         .install-box {
             background: #f7f7f7;
             padding: 20px;
@@ -86,19 +85,11 @@ cat > index.html << 'EOF'
             overflow-x: auto;
             font-family: 'Monaco', 'Courier New', monospace;
             margin: 10px 0;
+            font-size: 14px;
         }
-        .step {
-            margin: 30px 0;
-        }
-        .step h3 {
-            color: #764ba2;
-            margin-bottom: 15px;
-        }
-        .feature {
-            display: flex;
-            align-items: center;
-            margin: 15px 0;
-        }
+        .step { margin: 30px 0; }
+        .step h3 { color: #764ba2; margin-bottom: 15px; }
+        .feature { display: flex; align-items: center; margin: 15px 0; }
         .feature::before {
             content: "✓";
             color: #667eea;
@@ -106,51 +97,49 @@ cat > index.html << 'EOF'
             font-size: 20px;
             margin-right: 10px;
         }
-        a {
-            color: #667eea;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
+        a { color: #667eea; text-decoration: none; }
+        a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🛠️ Command Maker</h1>
-        <p class="subtitle">Crie e gerencie comandos para Zsh</p>
-        
+        <h1>Command Maker</h1>
+        <p class="subtitle">Crie e gerencie aliases para Zsh organizados por namespace</p>
+
         <div class="step">
-            <h3>🚀 Instalação</h3>
+            <h3>Instalacao</h3>
             <div class="install-box">
-                <p><strong>1. Adicione o repositório:</strong></p>
-                <code>echo "deb [trusted=yes] https://lpaivareis.github.io/command-maker/apt-repo stable main" | sudo tee /etc/apt/sources.list.d/command-maker.list</code>
-                
+                <p><strong>1. Adicione o repositorio:</strong></p>
+                <code>echo "deb [trusted=yes] https://lpaivareis.github.io/command_maker stable main" | sudo tee /etc/apt/sources.list.d/command-maker.list</code>
+
                 <p style="margin-top: 20px;"><strong>2. Instale o pacote:</strong></p>
                 <code>sudo apt-get update && sudo apt-get install command-maker</code>
             </div>
         </div>
 
         <div class="step">
-            <h3>✨ Recursos</h3>
-            <div class="feature">Crie comandos personalizados facilmente</div>
-            <div class="feature">Organize por namespace</div>
-            <div class="feature">Documentação integrada</div>
-            <div class="feature">Busca avançada</div>
-            <div class="feature">Interface interativa</div>
+            <h3>Recursos</h3>
+            <div class="feature">Aliases organizados por namespace</div>
+            <div class="feature">Protecao contra sobrescrita de comandos do sistema</div>
+            <div class="feature">Persistencia automatica dos aliases</div>
+            <div class="feature">Menu interativo</div>
+            <div class="feature">Busca avancada</div>
         </div>
 
         <div class="step">
-            <h3>📚 Uso</h3>
-            <code>command-add      # Adicionar novo comando<br>command-menu     # Menu interativo<br>lsa              # Listar comandos<br>lsa-search       # Buscar comandos</code>
+            <h3>Comandos</h3>
+            <code>cm &lt;ns&gt; &lt;alias&gt; &lt;cmd&gt; &lt;desc&gt;  # Criar alias
+cm-add                            # Adicionar interativamente
+cm-find                           # Listar aliases
+cm-menu                           # Menu interativo</code>
         </div>
 
         <div class="step">
-            <h3>🔗 Links</h3>
+            <h3>Links</h3>
             <p>
-                <a href="https://github.com/seu-usuario/command-maker" target="_blank">GitHub</a> •
-                <a href="https://github.com/seu-usuario/command-maker/issues" target="_blank">Issues</a> •
-                <a href="https://github.com/seu-usuario/command-maker/blob/main/README.md" target="_blank">Documentação</a>
+                <a href="https://github.com/lpaivareis/command_maker" target="_blank">GitHub</a> |
+                <a href="https://github.com/lpaivareis/command_maker/issues" target="_blank">Issues</a> |
+                <a href="https://github.com/lpaivareis/command_maker/blob/main/README.md" target="_blank">Documentacao</a>
             </p>
         </div>
     </div>
@@ -161,13 +150,9 @@ EOF
 cd ..
 
 echo ""
-echo "✅ Repositório APT criado em: $REPO_DIR"
+echo "Repositorio APT criado em: $REPO_DIR"
 echo ""
-echo "📤 Próximos passos:"
-echo "   1. Faça commit do conteúdo de $REPO_DIR para o branch gh-pages"
-echo "   2. Ative GitHub Pages nas configurações do repositório"
-echo "   3. Usuários poderão instalar com:"
+echo "Conteudo do Packages:"
+cat "$REPO_DIR/dists/$DIST/$COMPONENT/binary-$ARCH/Packages"
 echo ""
-echo "      echo \"deb [trusted=yes] https://seu-usuario.github.io/command-maker/apt-repo stable main\" | sudo tee /etc/apt/sources.list.d/command-maker.list"
-echo "      sudo apt-get update"
-echo "      sudo apt-get install command-maker"
+echo "Para fazer deploy: make deploy"
